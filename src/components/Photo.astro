@@ -1,0 +1,66 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  imagePath: string;
+  altText: string;
+  imgWidth?: number;
+  imgHeight?: number;
+  zLayer?: number;
+}
+
+const { imagePath, altText, imgWidth, imgHeight, zLayer } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/images/insta/*.{jpeg,jpg,png,gif}"
+);
+if (!images[imagePath])
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "/src/images/insta/*.{jpeg,jpg,png,gif}"`
+  );
+---
+
+<div class="photo">
+  <Image
+    src={images[imagePath]()}
+    alt={altText}
+    width={imgWidth}
+    height={imgHeight}
+    style={{ zIndex: zLayer }}
+  />
+</div>
+
+<style>
+  .photo {
+   // outline: 1px solid green;
+   width: 33vw;
+    position: relative;
+  }
+  .photo > img {
+    max-width: 27vw;
+    max-height: 27dvh;
+    height: auto;
+    width: auto;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 4px solid white;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  .photo:nth-child(odd) > img {
+    transform: translate(-50%, -50%) rotate(-3deg);
+  }
+  .photo:nth-child(even) > img {
+    transform: translate(-50%, -50%) rotate(3deg);
+  }
+  @media screen and (min-width: 1024px) {
+    .photo {
+      width: 25vw;
+    }
+    .photo > img {
+      max-width: 20vw;
+    max-height: 27dvh;
+    }
+    
+  }
+</style>

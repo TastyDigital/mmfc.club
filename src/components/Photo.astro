@@ -6,10 +6,14 @@ interface Props {
   altText: string;
   imgWidth?: number;
   imgHeight?: number;
-  zLayer?: number;
+  index: number;
+  isRow?: string;
+  count: number;
 }
 
-const { imagePath, altText, imgWidth, imgHeight, zLayer } = Astro.props;
+const { imagePath, altText, imgWidth, imgHeight, index, isRow, count } = Astro.props;
+const placement = index === 0 ? 'first' : count === index + 1 ? 'last' : '';
+const zLayer = count - index;
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/images/insta/*.{jpeg,jpg,png,gif}"
 );
@@ -19,7 +23,7 @@ if (!images[imagePath])
   );
 ---
 
-<div class="photo">
+<div class=`photo ${isRow} ${placement}`>
   <Image
     src={images[imagePath]()}
     alt={altText}
@@ -31,36 +35,61 @@ if (!images[imagePath])
 
 <style>
   .photo {
-   // outline: 1px solid green;
-   width: 33vw;
+    // outline: 1px solid green;
+    /* width: 33vw;
+    height:22vh; */
     position: relative;
   }
   .photo > img {
-    max-width: 27vw;
-    max-height: 27dvh;
+    max-width: 33vw;
+    max-height: calc(25dvh - 2/3rem);
     height: auto;
     width: auto;
     display: block;
-    position: absolute;
+    /* position: absolute;
     top: 50%;
-    left: 50%;
+    left: 50%; */
     border: 4px solid white;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
   }
   .photo:nth-child(odd) > img {
-    transform: translate(-50%, -50%) rotate(-3deg);
+    //transform: translate(-50%, -50%) rotate(-3deg);
+    transform: rotate(-3deg);
   }
   .photo:nth-child(even) > img {
-    transform: translate(-50%, -50%) rotate(3deg);
+    //transform: translate(-50%, -50%) rotate(3deg);
+    transform: rotate(3deg);
+  }
+  .photo.top > img {
+    margin-left: 0;
+  }
+  .photo.bottom > img {
+    margin-right: 0;
   }
   @media screen and (min-width: 1024px) {
-    .photo {
+    /* .photo {
       width: 25vw;
-    }
+
+    height:30vh;
+    } */
     .photo > img {
-      max-width: 20vw;
-    max-height: 27dvh;
+      max-width: 25vw;
+     // max-height:33dvh;
+    max-height: calc(33dvh - 1rem);
     }
-    
+    .photo.top > img {
+      margin-left: auto;
+    }
+    .photo.bottom > img {
+      margin-right: auto;
+    }
+
+    .photo.first > img {
+      margin-left: 0;
+    }
+    .photo.last > img {
+      margin-right: 0;
+    }
   }
 </style>

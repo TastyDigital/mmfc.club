@@ -18,7 +18,7 @@ const { href, title, body, flag } = Astro.props;
       {title}
       <span>&rarr;</span>
     </h2>
-    <div class={`fib fi-${flag} fis`}></div>
+    <div class={`fib fi-${flag}`}></div>
   </a>
 </li>
 <style>
@@ -29,24 +29,25 @@ const { href, title, body, flag } = Astro.props;
     background-color: #fff;
     background-image: none;
     background-size: 400%;
-    border-radius: 25px;
+    border-radius: 5px;
     background-position: 100%;
     transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 4px solid rgb(var(--mmfc-blue));
   }
   .link-card > a {
     width: 100%;
     text-decoration: none;
     line-height: 1.4;
-    padding: calc(1.5rem - 1px) calc(2rem - 1px);
-    border-radius: 26px;
+    padding: calc(1rem - 1px) calc(1.5rem - 1px);
+    border-radius: 6px;
     color: rgb(var(--accent-dark));
-    background-color: #fff;
-    opacity: 0.8;
+    background-color: rgba(#fff 0.8);
+    //opacity: 0.8;
     position: relative;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
   }
   h2 {
     margin: 0;
@@ -70,7 +71,6 @@ const { href, title, body, flag } = Astro.props;
   .link-card:is(:hover, :focus-within) h2 {
     color: #232323;
     //background-color: rgb(var(--accent-dark));
-
   }
 
   .link-card:is(:hover, :focus-within) h2 > span {
@@ -81,14 +81,17 @@ const { href, title, body, flag } = Astro.props;
     background-size: contain;
     background-position: 50%;
     background-repeat: no-repeat;
+    width: 2rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    left: calc(-1rem - 2px);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   }
 
   .fib.fis {
-    width: 1rem;
-    height: 1rem;
-    position: absolute;
-    top: 1.8rem;
-    left: calc(-1rem - 1px);
+    width: 1.5rem;
+    height: 1.5rem;
   }
   .fi {
     position: relative;

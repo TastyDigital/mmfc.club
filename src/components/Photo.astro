@@ -61,13 +61,19 @@ if (!images[imagePath])
     //transform: translate(-50%, -50%) rotate(3deg);
     transform: rotate(3deg);
   }
+  .mid.photo:nth-child(odd) > img {
+    transform: rotate(3deg);
+  }
+    .mid.photo:nth-child(even) > img {
+    transform: rotate(-3deg);
+  }
   .photo.top > img {
     margin-left: 0;
   }
   .photo.bottom > img {
     margin-right: 0;
   }
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 670px) {
     /* .photo {
       width: 25vw;
 
@@ -75,8 +81,7 @@ if (!images[imagePath])
     } */
     .photo > img {
       max-width: 25vw;
-     // max-height:33dvh;
-    max-height: calc(33dvh - 1rem);
+      max-height: calc(33dvh - 1rem);
     }
     .photo.top > img {
       margin-left: auto;

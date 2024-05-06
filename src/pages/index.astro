@@ -228,15 +228,6 @@ const items = [...topitems, ...miditems, ...bottomitems];
     //flex-grow: 1;
   }
 
-  @media screen and (min-width: 1024px) {
-    .gallery {
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .gallery .pic-group {
-      flex-direction: row;
-    }
-  }
   header {
     text-align: center;
   }
@@ -288,7 +279,7 @@ const items = [...topitems, ...miditems, ...bottomitems];
     //margin-bottom: 18dvh;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 670px) {
     .link-card-grid {
       grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 
@@ -297,9 +288,7 @@ const items = [...topitems, ...miditems, ...bottomitems];
       gap: 2rem;
       margin-bottom: 8rem;
     }
-  }
 
-  @media screen and (min-width: 1024px) {
     .pic-group > .photo:first-child > img {
       margin-left: 0;
     }
@@ -312,6 +301,14 @@ const items = [...topitems, ...miditems, ...bottomitems];
     .gallery .pic-group.bottompics {
       align-items: flex-end;
       align-content: flex-end;
+    }
+    
+    .gallery {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .gallery .pic-group {
+      flex-direction: row;
     }
   }
 </style>

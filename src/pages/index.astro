@@ -1,74 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import Photo from "../components/Photo.astro";
-const topitems = [
-  {
-    path: "/src/images/insta/onpitch.jpg",
-    alt: "On Pitch",
-    width: 681,
-    height: 681,
-  },
-  {
-    path: "/src/images/insta/ouai.jpg",
-    alt: "Oaui",
-    width: 1080,
-    height: 810,
-  },
-  {
-    path: "/src/images/insta/team1.jpg",
-    alt: "Team 1",
-    width: 1080,
-    height: 844,
-  },
-  {
-    path: "/src/images/insta/poloroid.jpg",
-    alt: "Poloroid",
-    width: 539,
-    height: 525,
-  },
-];
-const miditems = [
-  {
-    path: "/src/images/insta/tour-deiffel.jpg",
-    alt: "tour eiffel",
-    width: 960,
-    height: 1200,
-  },
-  {
-    path: "/src/images/insta/friendly.jpg",
-    alt: "Friendly",
-    width: 941,
-    height: 706,
-  },
-];
-const bottomitems = [
-  {
-    path: "/src/images/insta/evening.jpg",
-    alt: "Evening",
-    width: 1080,
-    height: 810,
-  },
-  {
-    path: "/src/images/insta/veste-jaune.jpg",
-    alt: "Veste Jaune",
-    width: 1080,
-    height: 609,
-  },
-  {
-    path: "/src/images/insta/team2.jpg",
-    alt: "Team 2",
-    width: 1080,
-    height: 608,
-  },
-  {
-    path: "/src/images/insta/strolling.jpg",
-    alt: "Strolling",
-    width: 1080,
-    height: 1080,
-  },
-];
-const items = [...topitems, ...miditems, ...bottomitems];
+import images from "../utils/pictures.js";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -104,84 +37,136 @@ const items = [...topitems, ...miditems, ...bottomitems];
               >
             </svg>
           </h1>
+          <h2>
+            <span
+              ><span>Ligue de Paris Île-de-France</span> - <span
+                >District Parisien de football</span
+              ></span
+            >
+          </h2>
         </header>
         <ul role="list" class="link-card-grid">
           <Card
             href="mailto:hello@mmfc.club"
-            title="Rejoignez-nous"
+            title="hello@mmfc.club"
             body="Le seul club de football bilingue local de l'Est parisien pour les U6-U18. Une communauté de familles depuis 2012."
+            cta="Rejoignez-nous"
             flag="fr"
           />
           <Card
             href="mailto:hello@mmfc.club"
-            title="Join Us"
-            body="The only home grown bilingual football club in East Paris for U6-U18. A community of families since 2012."
+            title="hello@mmfc.club"
+            body="The only home grown bilingual football club in East Paris for U6-U18. A community of families since 2012. "
+            cta="Join Us"
             flag="gb"
           />
         </ul>
-        <p class="footnote"><span>We ❤️ Football</span></p>
+        <footer class="footnote">
+          <a
+            href="https://www.instagram.com/mmfcparisfootball/"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              src="/insta/instagram-icon.png"
+              alt="Instagram"
+              width="32"
+              height="32"
+              style="display:block"
+            />
+          </a>
+        </footer>
       </section>
-      <section class="gallery">
-        <div class="pic-group toppics">
-          {
-            topitems.map((item, index) => (
-              <Photo
-                isRow="top"
-                imagePath={item.path}
-                altText={item.alt}
-                index={index}
-                count={topitems.length}
-              />
-            ))
-          }
-        </div>
-        <div class="pic-group midpics">
-          {
-            miditems.map((item, index) => (
-              <Photo
-                isRow="mid"
-                imagePath={item.path}
-                altText={item.alt}
-                index={index}
-                count={miditems.length}
-              />
-            ))
-          }
-        </div>
-        <div class="pic-group bottompics">
-          {
-            bottomitems.map((item, index) => (
-              <Photo
-                isRow="bottom"
-                imagePath={item.path}
-                altText={item.alt}
-                index={index}
-                count={bottomitems.length}
-              />
-            ))
-          }
-        </div>
-      </section>
+      <div class="image-grid">
+        {
+          images.slice(0, 49).map((item: { src: string }, index: number) => (
+            <div class={`wrapper poloroid-${index.toString()}`}>
+              <figure class={`poloroid`}>
+                <img src={item.src} onload="this.style.opacity=1" />
+              </figure>
+            </div>
+          ))
+        }
+      </div>
+      <div class="credit">
+        Website by <a href="https://tasty.digital/" target="_blank"
+          >Tasty Digital</a
+        >
+      </div>
     </div>
   </main>
 </Layout>
 
 <style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    color: white;
-    font-size: 1rem;
-    line-height: 1.6;
-    overflow: hidden;
-    min-height: calc(100dvh - 2rem);
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 0;
+    width: 100%;
+    min-height: 100dvh;
+    background-color: #ccc;
+    z-index: -1;
     position: relative;
   }
-  .content {
-    height: 100%;
-    min-height: calc(100dvh - 2rem);
-    max-width: calc(100vw - 2rem);
+  .wrapper {
+    padding-bottom: 116%;
+    position: relative;
   }
+  .poloroid-48 {
+    display: none;
+  }
+  .wrapper > .poloroid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .poloroid {
+    overflow: hidden;
+    background-color: #fff;
+    padding: 5% 5% 26%;
+    margin: 0.5px;
+    position: relative;
+    margin: 1%;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .poloroid img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: saturate(0.5);
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  @media screen and (min-width: 670px) {
+    .image-grid {
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+    }
+    .poloroid {
+      padding-bottom: 16%;
+    }
+  }
+
+  @media screen and (min-width: 960px) {
+    .image-grid {
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+    }
+    .poloroid {
+      padding-bottom: 16%;
+    }
+    .poloroid-48 {
+      display: block;
+    }
+  }
+  /* .poloroid img:hover {
+filter:saturate(1)
+ } */
+
   .content section.club-info {
     display: flex;
     flex-direction: column;
@@ -195,6 +180,8 @@ const items = [...topitems, ...miditems, ...bottomitems];
     width: 960px;
     margin: 0 auto;
     max-width: 100%;
+    z-index: 2;
+    position: fixed;
   }
   .mmfc {
     /* position: absolute;
@@ -207,27 +194,6 @@ const items = [...topitems, ...miditems, ...bottomitems];
     /* z-index: 2;
     opacity: 0.8; */
   }
-  .gallery {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    //justify-content: space-between;
-    align-items: stretch;
-    gap: 0;
-    z-index: -1;
-    position: relative;
-    min-height: calc(100dvh - 2rem);
-  }
-  .gallery .pic-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    //height: 100%;
-    width: 100%;
-    //flex-grow: 1;
-  }
-
   header {
     text-align: center;
   }
@@ -237,9 +203,22 @@ const items = [...topitems, ...miditems, ...bottomitems];
     line-height: 1;
     text-align: center;
     margin: 2rem 0 1rem;
-    //background-color: rgba(var(--mmfc-blue), 0.5);
+    /* background-color: rgba(var(--mmfc-blue), 0.5); */
     display: inline-block;
   }
+  h2 {
+    color: rgb(var(--mmfc-blue));
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  }
+  h2 > span {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.1em;
+    border-radius: 0.1em;
+  }
+  h2 > span > span {
+    white-space: nowrap;
+  }
+
   .text-gradient {
     background-image: var(--accent-gradient);
     -webkit-background-clip: text;
@@ -251,23 +230,18 @@ const items = [...topitems, ...miditems, ...bottomitems];
     margin: 2rem;
     text-align: center;
     font-size: 1rem;
-    //box-shadow: 3px 3px 2px rgba(var(--mmfc-blue), 0.7);
+    /* box-shadow: 3px 3px 2px rgba(var(--mmfc-blue), 0.7); */
   }
-  .footnote span {
-    background-color: rgba(var(--mmfc-blue), 0.7);
-    padding: 0.2rem 0.6rem;
+  .footnote a {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: white;
+    padding: 0.6rem;
     border-radius: 2rem;
+    display: inline-block;
+    margin: 0 auto;
   }
-  .footnote code {
-    font-size: 0.8em;
-    font-weight: bold;
-    background: rgba(var(--accent-light), 12%);
-    color: rgb(var(--accent-light));
-    border-radius: 4px;
-    padding: 0.3em 0.4em;
-  }
-  .footnote strong {
-    color: rgb(var(--accent-light));
+  .footnote a:hover {
+    background-color: rgba(255, 255, 255, 1);
   }
   .link-card-grid {
     display: grid;
@@ -276,7 +250,7 @@ const items = [...topitems, ...miditems, ...bottomitems];
     padding: 0;
     margin: 0 auto;
     max-width: 18rem;
-    //margin-bottom: 18dvh;
+    /* margin-bottom: 18dvh; */
   }
 
   @media screen and (min-width: 670px) {
@@ -284,31 +258,34 @@ const items = [...topitems, ...miditems, ...bottomitems];
       grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 
       max-width: 75%;
-      //margin-bottom: 18dvh;
       gap: 2rem;
       margin-bottom: 8rem;
     }
-
-    .pic-group > .photo:first-child > img {
-      margin-left: 0;
-    }
-    .pic-group > .photo:last-child > img {
-      margin-right: 0;
-    }
-    .gallery .pic-group.toppics {
-      align-items: flex-start;
-    }
-    .gallery .pic-group.bottompics {
-      align-items: flex-end;
-      align-content: flex-end;
-    }
-    
-    .gallery {
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .gallery .pic-group {
-      flex-direction: row;
-    }
+  }
+  main,
+  html,
+  body,
+  .content {
+    position: relative;
+    height: 100%;
+  }
+  .credit {
+    position: relative;
+    text-align: right;
+    transform: translateY(-2rem);
+    font-size: 0.625rem;
+    padding: 0.5em 1em;
+    /* margin-top: -3.75em; */
+    color: rgba(var(--mmfc-blue), 0.1);
+    z-index: 2;
+  }
+  .credit a {
+    color: rgba(var(--mmfc-blue), 0.1);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .credit a:hover {
+    color: rgba(var(--mmfc-blue), 0.25);
+    text-decoration: none;
   }
 </style>
